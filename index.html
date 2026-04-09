@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmVigilance AI — ADR Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Animated background grid -->
+<div class="bg-grid"></div>
+<div class="bg-vignette"></div>
+
+<!-- Scanline overlay -->
+<div class="scanlines"></div>
+
+<!-- Top bar -->
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">Rx</div>
+    <div>
+      <div class="logo-title">PHARMVIGILANCE <span class="logo-ai">AI</span></div>
+      <div class="logo-sub">Adverse Drug Reaction Intelligence Platform</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="status-dot"></div>
+    <span class="status-text">SYSTEM ONLINE</span>
+    <div class="topbar-time" id="clock"></div>
+    <div class="version-badge">v2.0</div>
+  </div>
+</header>
+
+<!-- Main layout -->
+<div class="shell">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+  <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="section-label">PATIENT PROFILE</div>
+
+      <div class="field-group">
+        <label class="field-label">Drug Selection</label>
+        <div class="select-wrap">
+          <select id="drug">
+            <option>Warfarin</option>
+            <option>Aspirin</option>
+            <option>Metformin</option>
+            <option>Lisinopril</option>
+            <option>Gabapentin</option>
+            <option>Ibuprofen</option>
+            <option>Atorvastatin</option>
+            <option>Amoxicillin</option>
+            <option>Metoprolol</option>
+            <option>Omeprazole</option>
+          </select>
+          <span class="select-arrow">▾</span>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Age — <span class="field-val" id="ageVal">68</span> yrs</label>
+        <div class="slider-track-wrap">
+          <input type="range" id="age" min="18" max="85" value="68" class="slider">
+          <div class="slider-fill" id="ageFill"></div>
+        </div>
+        <div class="slider-minmax"><span>18</span><span>85</span></div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Gender</label>
+        <div class="radio-group">
+          <label class="radio-btn active" id="lblFemale">
+            <input type="radio" name="gender" value="Female" checked> Female
+          </label>
+          <label class="radio-btn" id="lblMale">
+            <input type="radio" name="gender" value="Male"> Male
+          </label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">Dosage — <span class="field-val" id="doseVal">150</span> mg</label>
+        <div class="slider-track-wrap">
+          <input type="range" id="dosage" min="10" max="500" value="150" class="slider">
+          <div class="slider-fill" id="doseFill"></div>
+        </div>
+        <div class="slider-minmax"><span>10mg</span><span>500mg</span></div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-label">COMORBIDITIES</div>
+      <div class="toggle-row">
+        <div class="toggle-item" id="diabToggle" onclick="toggleComorbidity('diab')">
+          <div class="toggle-switch active" id="diabSwitch"></div>
+          <div>
+            <div class="toggle-name">Diabetes</div>
+            <div class="toggle-sub">Type II</div>
+          </div>
+          <div class="toggle-badge active" id="diabBadge">ON</div>
+        </div>
+        <div class="toggle-item" id="htnToggle" onclick="toggleComorbidity('htn')">
+          <div class="toggle-switch active" id="htnSwitch"></div>
+          <div>
+            <div class="toggle-name">Hypertension</div>
+            <div class="toggle-sub">Stage I+</div>
+          </div>
+          <div class="toggle-badge active" id="htnBadge">ON</div>
+        </div>
+      </div>
+      <input type="hidden" id="diabetes" value="1">
+      <input type="hidden" id="hypertension" value="1">
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-label">SIMULATION RANGE</div>
+      <div class="sim-range-row">
+        <div class="field-group" style="flex:1">
+          <label class="field-label">Min mg</label>
+          <input type="number" id="simMin" value="10" min="1" max="490" class="num-input">
+        </div>
+        <div class="range-sep">→</div>
+        <div class="field-group" style="flex:1">
+          <label class="field-label">Max mg</label>
+          <input type="number" id="simMax" value="500" min="20" max="1000" class="num-input">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-stack">
+      <button class="btn-primary" onclick="runPrediction()">
+        <span class="btn-icon">⬡</span>
+        <span>ANALYZE PATIENT</span>
+        <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn-secondary" onclick="runSimulation()">
+        <span class="btn-icon">◈</span>
+        <span>RUN SIMULATION</span>
+      </button>
+      <button class="btn-ghost" onclick="resetAll()">RESET</button>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- Top metrics strip -->
+    <div class="metrics-strip">
+      <div class="metric-pill" id="metaDrug">
+        <span class="mp-label">DRUG</span>
+        <span class="mp-val" id="metaDrugVal">Warfarin</span>
+      </div>
+      <div class="metric-pill" id="metaDose">
+        <span class="mp-label">DOSAGE</span>
+        <span class="mp-val" id="metaDoseVal">150 mg</span>
+      </div>
+      <div class="metric-pill">
+        <span class="mp-label">AGE</span>
+        <span class="mp-val" id="metaAgeVal">68 yrs</span>
+      </div>
+      <div class="metric-pill">
+        <span class="mp-label">GENDER</span>
+        <span class="mp-val" id="metaGenderVal">Female</span>
+      </div>
+      <div class="metric-pill" id="metaDiab">
+        <span class="mp-label">DIABETES</span>
+        <span class="mp-val" id="metaDiabVal">YES</span>
+      </div>
+      <div class="metric-pill" id="metaHtn">
+        <span class="mp-label">HYPERTENSION</span>
+        <span class="mp-val" id="metaHtnVal">YES</span>
+      </div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="cards-grid">
+
+      <!-- GAUGE CARD -->
+      <div class="card card-gauge animate-in" style="--delay:0.1s">
+        <div class="card-header">
+          <span class="card-title">ADR RISK ASSESSMENT</span>
+          <span class="card-badge" id="riskBadge">AWAITING</span>
+        </div>
+        <div class="gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 220 130">
+            <!-- Background arc -->
+            <path d="M 20 120 A 90 90 0 0 1 200 120" fill="none" stroke="#1a0a0a" stroke-width="16" stroke-linecap="round"/>
+            <!-- Zone colors -->
+            <path d="M 20 120 A 90 90 0 0 1 200 120" fill="none" stroke="url(#zoneGrad)" stroke-width="16" stroke-linecap="round" opacity="0.25"/>
+            <!-- Active arc -->
+            <path id="gaugeArc" d="M 20 120 A 90 90 0 0 1 200 120" fill="none" stroke="#dc2626" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="283" stroke-dashoffset="283" style="transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1), stroke 0.6s ease"/>
+            <!-- Needle -->
+            <line id="needle" x1="110" y1="120" x2="110" y2="42"
+              stroke="#ff1a1a" stroke-width="2.5" stroke-linecap="round"
+              transform="rotate(-90, 110, 120)"
+              style="transition: transform 1.2s cubic-bezier(0.4,0,0.2,1)"/>
+            <circle cx="110" cy="120" r="5" fill="#ff1a1a"/>
+            <circle cx="110" cy="120" r="2" fill="#0a0a0a"/>
+            <!-- Tick marks -->
+            <g stroke="#333" stroke-width="1" opacity="0.6">
+              <line x1="20" y1="120" x2="26" y2="120"/>
+              <line x1="110" y1="30" x2="110" y2="36"/>
+              <line x1="200" y1="120" x2="194" y2="120"/>
+            </g>
+            <!-- Labels -->
+            <text x="14" y="116" fill="#555" font-size="9" font-family="DM Mono">0</text>
+            <text x="104" y="26" fill="#555" font-size="9" font-family="DM Mono">50</text>
+            <text x="196" y="116" fill="#555" font-size="9" font-family="DM Mono">100</text>
+            <defs>
+              <linearGradient id="zoneGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#22c55e"/>
+                <stop offset="40%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#dc2626"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-pct" id="probText">--</div>
+            <div class="gauge-label">PROBABILITY</div>
+          </div>
+        </div>
+        <div class="risk-outcome" id="riskOutcome">
+          <div class="outcome-icon" id="outcomeIcon">◈</div>
+          <div class="outcome-text" id="outcomeText">Run analysis to see prediction</div>
+        </div>
+        <div class="confidence-bar-wrap">
+          <div class="conf-label">Confidence</div>
+          <div class="conf-track">
+            <div class="conf-fill" id="confFill" style="width:0%"></div>
+          </div>
+          <div class="conf-val" id="confVal">--%</div>
+        </div>
+      </div>
+
+      <!-- RISK BREAKDOWN CARD -->
+      <div class="card card-breakdown animate-in" style="--delay:0.2s">
+        <div class="card-header">
+          <span class="card-title">RISK FACTOR BREAKDOWN</span>
+        </div>
+        <div class="factor-list" id="factorList">
+          <div class="factor-row">
+            <span class="factor-name">Drug Base Risk</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-drug" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-drug">--</span>
+          </div>
+          <div class="factor-row">
+            <span class="factor-name">Age Factor</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-age" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-age">--</span>
+          </div>
+          <div class="factor-row">
+            <span class="factor-name">Dosage Factor</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-dose" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-dose">--</span>
+          </div>
+          <div class="factor-row">
+            <span class="factor-name">Diabetes</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-diab" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-diab">--</span>
+          </div>
+          <div class="factor-row">
+            <span class="factor-name">Hypertension</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-htn" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-htn">--</span>
+          </div>
+          <div class="factor-row">
+            <span class="factor-name">Gender</span>
+            <div class="factor-bar-wrap"><div class="factor-bar" id="fb-gen" style="width:0%"></div></div>
+            <span class="factor-pct" id="fp-gen">--</span>
+          </div>
+        </div>
+        <div class="total-risk-row" id="totalRiskRow" style="opacity:0">
+          <span>TOTAL RISK SCORE</span>
+          <span class="total-risk-val" id="totalRiskVal">--</span>
+        </div>
+      </div>
+
+      <!-- FEATURE IMPORTANCE CARD -->
+      <div class="card animate-in" style="--delay:0.3s">
+        <div class="card-header">
+          <span class="card-title">MODEL FEATURE IMPORTANCE</span>
+          <span class="card-sub">Random Forest weights</span>
+        </div>
+        <div style="position:relative;height:200px">
+          <canvas id="featureChart"></canvas>
+        </div>
+      </div>
+
+      <!-- SIMULATION CARD (full width) -->
+      <div class="card card-full animate-in" style="--delay:0.4s">
+        <div class="card-header">
+          <span class="card-title">DOSAGE vs ADR RISK SIMULATION</span>
+          <div class="sim-legend">
+            <span class="leg-dot" style="background:#22c55e"></span>Low
+            <span class="leg-dot" style="background:#f59e0b"></span>Medium
+            <span class="leg-dot" style="background:#dc2626"></span>High
+          </div>
+        </div>
+        <div id="simLoading" class="sim-loading" style="display:none">
+          <div class="sim-spinner"></div>
+          <span>Running simulation across dosage range...</span>
+        </div>
+        <div style="position:relative;height:220px">
+          <canvas id="simChart"></canvas>
+        </div>
+        <div class="sim-insights" id="simInsights" style="display:none">
+          <div class="insight-pill green">
+            <span class="ip-label">SAFE THRESHOLD</span>
+            <span class="ip-val" id="safeThreshold">-- mg</span>
+          </div>
+          <div class="insight-pill amber">
+            <span class="ip-label">CAUTION ZONE</span>
+            <span class="ip-val" id="cautionZone">-- mg</span>
+          </div>
+          <div class="insight-pill red">
+            <span class="ip-label">HIGH RISK STARTS</span>
+            <span class="ip-val" id="highRiskStart">-- mg</span>
+          </div>
+          <div class="insight-pill neutral">
+            <span class="ip-label">CURRENT DOSAGE</span>
+            <span class="ip-val" id="currentDoseInsight">-- mg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRUG COMPARISON CARD -->
+      <div class="card animate-in" style="--delay:0.5s">
+        <div class="card-header">
+          <span class="card-title">DRUG RISK PROFILE</span>
+          <span class="card-sub">Base ADR rates</span>
+        </div>
+        <div style="position:relative;height:200px">
+          <canvas id="drugChart"></canvas>
+        </div>
+      </div>
+
+      <!-- PATIENT HISTORY CARD -->
+      <div class="card animate-in" style="--delay:0.6s">
+        <div class="card-header">
+          <span class="card-title">ANALYSIS LOG</span>
+          <button class="clear-btn" onclick="clearLog()">CLEAR</button>
+        </div>
+        <div class="log-list" id="logList">
+          <div class="log-empty">No analyses run yet</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Alert overlay -->
+<div class="alert-overlay" id="alertOverlay" style="display:none">
+  <div class="alert-box" id="alertBox">
+    <div class="alert-icon" id="alertIcon">⚠</div>
+    <div class="alert-title" id="alertTitle">HIGH RISK DETECTED</div>
+    <div class="alert-msg" id="alertMsg">This patient profile indicates elevated ADR risk.</div>
+    <button class="alert-close" onclick="closeAlert()">ACKNOWLEDGE</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@
 
 ## 🖥️ Dashboard Preview
 
-> *(Screenshots — add yours here after launching the app)*
+ ![Dashboard](assets/dashboard.png)
 
 | ADR Risk Assessment | Dosage Simulation |
 |---|---|

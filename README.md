@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/pharmvigilance-slow.gif" width="100%" alt="PharmVigilance AI Banner"/>
+<img src="assets/pharmvigilance-banner-slow.gif" width="100%" alt="PharmVigilance AI Banner"/>
 
 <br/>
 
@@ -333,7 +333,7 @@ M.Sc. Computational Statistics & Data Analytics — VIT Vellore, School of Advan
 
 <div align="center">
 
-<img src="assets/pharmvigilance-slow.gif" width="100%" alt="PharmVigilance AI Banner"/>
+<img src="assets/pharmvigilance-footer-slow.gif" width="100%" alt="PharmVigilance AI Banner"/>
 
 <br/>
 

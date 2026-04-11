@@ -10,14 +10,12 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-f5a623?style=for-the-badge&logo=scikit-learn&logoColor=black)
 
 <br/>
-
 ![Status](https://img.shields.io/badge/Status-ONLINE-00ff44?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-cc0000?style=flat-square)
 ![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.912-cc0000?style=flat-square)
 ![Accuracy](https://img.shields.io/badge/Accuracy-83.2%25-f5a623?style=flat-square)
 ![Samples](https://img.shields.io/badge/Samples-3000-444444?style=flat-square)
 ![Drugs](https://img.shields.io/badge/Drugs-10_Profiled-880000?style=flat-square)
-
 </div>
 
 ---

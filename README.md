@@ -108,12 +108,12 @@ Adverse Drug Reactions are a leading cause of preventable hospitalisations world
 
 | Layer | Technology | Purpose |
 |---|---|---|
-|**ML Model** | Random Forest (sklearn) | ADR probability classifier |
-|**API** | Flask 2.x | REST endpoints — predict / simulate / drugs |
-|**Frontend** | Vanilla JS + Chart.js | Real-time gauges, charts, simulation plots |
-|**UI** | Dark CSS + Animations | Futuristic clinical dashboard |
-|**Serialisation** | pickle | Model persistence and reload |
-|**Data** | pandas + NumPy | Synthetic ADR dataset generation |
+| 🤖 **ML Model** | Random Forest (sklearn) | ADR probability classifier |
+| 🌐 **API** | Flask 2.x | REST endpoints — predict / simulate / drugs |
+| 📊 **Frontend** | Vanilla JS + Chart.js | Real-time gauges, charts, simulation plots |
+| 🎨 **UI** | Dark CSS + Animations | Futuristic clinical dashboard |
+| 💾 **Serialisation** | pickle | Model persistence and reload |
+| 📐 **Data** | pandas + NumPy | Synthetic ADR dataset generation |
 
 </div>
 
@@ -278,14 +278,14 @@ open index.html   # ensure app.py is running first
 ```
 pharmvigilance_v2/
 │
-├── app.py              ←  Flask REST API  (predict · simulate · drugs · health)
-├── train_model.py      ←  Synthetic data generation + Random Forest training
-├── model.pkl           ←  Serialised trained model
-├── requirements.txt    ←  Python dependencies
+├── 🐍  app.py              ←  Flask REST API  (predict · simulate · drugs · health)
+├── 🧠  train_model.py      ←  Synthetic data generation + Random Forest training
+├── 📦  model.pkl           ←  Serialised trained model
+├── 📋  requirements.txt    ←  Python dependencies
 │
-├── index.html          ←  Single-page dark dashboard UI
-├── style.css           ←  Dark theme · animations · gauge · grid
-└── script.js           ←  API calls · Chart.js · UI interactions
+├── 🖥️   index.html          ←  Single-page dark dashboard UI
+├── 🎨  style.css           ←  Dark theme · animations · gauge · grid
+└── ⚡  script.js           ←  API calls · Chart.js · UI interactions
 ```
 
 ---
@@ -305,13 +305,13 @@ pharmvigilance_v2/
 
 ## 🛣️ Roadmap
 
-- SHAP explainability for per-patient feature attributions
-- Multi-drug interaction modelling
-- Real-world data integration (FAERS, Yellow Card)
-- XGBoost / LightGBM upgrade for higher AUC
-- Patient history tracking with database backend
-- Cloud deployment (AWS / Heroku) with auth layer
-- Calibration curves + METEOR evaluation metrics
+- [ ] 🔍 SHAP explainability for per-patient feature attributions
+- [ ] 💊 Multi-drug interaction modelling
+- [ ] 🌍 Real-world data integration (FAERS, Yellow Card)
+- [ ] ⚡ XGBoost / LightGBM upgrade for higher AUC
+- [ ] 🗄️ Patient history tracking with database backend
+- [ ] ☁️ Cloud deployment (AWS / Heroku) with auth layer
+- [ ] 📈 Calibration curves + METEOR evaluation metrics
 
 ---
 

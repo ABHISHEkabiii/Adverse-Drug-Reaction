@@ -1,6 +1,7 @@
 <div align="center">
 
 <img src="assets/pharmvigilance-banner-slow.gif" width="100%" alt="PharmVigilance AI Banner"/>
+<-- ✅ ANIMATED TYPING SVG --> <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=cc0000&background=00000000&center=true&vCenter=true&multiline=false&width=750&height=45&lines=Predicting+Adverse+Drug+Reactions+Before+They+Happen...;Random+Forest+%2B+Flask+Intelligence+Engine;Transparent+AI+for+Clinical+Research;Built+for+Pharma+%7C+Designed+for+Trust" alt="Typing SVG"/>   
 
 <br/>
 
@@ -9,7 +10,7 @@
 ![RandomForest](https://img.shields.io/badge/Random_Forest-Classifier-f5a623?style=for-the-badge&logo=scikit-learn&logoColor=black)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-f5a623?style=for-the-badge&logo=scikit-learn&logoColor=black)
 
-<br/>
+
 
 ![Status](https://img.shields.io/badge/Status-ONLINE-00ff44?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-cc0000?style=flat-square)

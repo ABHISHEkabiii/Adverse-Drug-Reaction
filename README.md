@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/pharmvigilance-banner.html" width="100%" alt="PharmVigilance AI Banner"/>
+<img src="assets/pharmvigilance-banner.html" width="100%" alt="PharmVigilance AI Banner"/>
 
 <br/>
 

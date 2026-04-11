@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PharmVigilance AI — Footer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER SHELL — mirror of banner dims
+═══════════════════════════════════════ */
+.footer {
+  position: relative;
+  width: 960px;
+  height: 90px;
+  background: #080808;
+  border: 1px solid #1f0000;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* scanlines */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,.12) 3px, rgba(0,0,0,.12) 4px
+  );
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* ── Top red accent line ── */
+.top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #660000 15%,
+    #cc0000 40%,
+    #ff2200 50%,
+    #cc0000 60%,
+    #660000 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(204,0,0,.4);
+  z-index: 10;
+}
+
+/* ── Bottom dim line ── */
+.bottom-line {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%, #330000 30%, #330000 70%, transparent 100%
+  );
+  z-index: 10;
+}
+
+/* ── Corner brackets ── */
+.corner { position: absolute; width: 10px; height: 10px; z-index: 20; }
+.c-tl { top:0; left:0;  border-top:2px solid #cc0000; border-left:2px solid #cc0000; }
+.c-tr { top:0; right:0; border-top:2px solid #cc0000; border-right:2px solid #cc0000; }
+.c-bl { bottom:0; left:0;  border-bottom:2px solid #330000; border-left:2px solid #330000; }
+.c-br { bottom:0; right:0; border-bottom:2px solid #330000; border-right:2px solid #330000; }
+
+/* ── Particle canvas ── */
+#particleCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── Content layout ── */
+.content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  z-index: 10;
+}
+
+/* LEFT — wordmark */
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wordmark-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.wt-pharm      { color: #cc0000; text-shadow: 0 0 12px rgba(204,0,0,.5); }
+.wt-vigilance  { color: #d0d0d0; }
+.wt-ai         { color: #cc0000; margin-left: 6px; text-shadow: 0 0 12px rgba(204,0,0,.5); }
+
+.wordmark-sub {
+  font-size: 7.5px;
+  letter-spacing: 2.5px;
+  color: #441111;
+  text-transform: uppercase;
+}
+
+/* CENTER — credits */
+.credits {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.credits-line {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  color: #553333;
+  text-transform: uppercase;
+}
+
+.credits-line span { color: #884444; }
+
+.credits-divider {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #440000, transparent);
+  margin: 0 auto;
+}
+
+.credits-author {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #773333;
+  text-transform: uppercase;
+}
+
+.credits-author strong {
+  color: #aa3333;
+  font-weight: normal;
+}
+
+/* RIGHT — badges vertical */
+.badges {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.badge-row {
+  display: flex;
+  gap: 5px;
+}
+
+.badge {
+  font-size: 7px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border: 1px solid #330000;
+  color: #662222;
+  text-transform: uppercase;
+  background: rgba(50,0,0,.3);
+}
+
+.badge.lit {
+  border-color: #550000;
+  color: #993333;
+  background: rgba(80,0,0,.3);
+}
+
+/* ── Animated pulse line (EKG style) ── */
+#ekgCanvas {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 18px;
+  z-index: 8;
+  opacity: .35;
+}
+
+/* ── MIT license tag ── */
+.license-tag {
+  position: absolute;
+  bottom: 6px;
+  left: 28px;
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: #2a0a0a;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+</style>
+</head>
+<body>
+
+<div class="footer">
+
+  <!-- Particle field -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- EKG pulse -->
+  <canvas id="ekgCanvas" width="200" height="18"></canvas>
+
+  <!-- Structure -->
+  <div class="top-line"></div>
+  <div class="bottom-line"></div>
+  <div class="corner c-tl"></div>
+  <div class="corner c-tr"></div>
+  <div class="corner c-bl"></div>
+  <div class="corner c-br"></div>
+
+  <!-- License -->
+  <div class="license-tag">MIT License</div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- LEFT -->
+    <div class="wordmark">
+      <div class="wordmark-title">
+        <span class="wt-pharm">PHARM</span><span class="wt-vigilance">VIGILANCE</span><span class="wt-ai">AI</span>
+      </div>
+      <div class="wordmark-sub">Keeping Patients Safe</div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="credits">
+      <div class="credits-line">Built with <span>Flask · scikit-learn · Chart.js · Vanilla JS</span></div>
+      <div class="credits-divider"></div>
+      <div class="credits-author">Built with ❤ by <strong>Abhishek</strong> · VIT Vellore · SAS</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="badges">
+      <div class="badge-row">
+        <span class="badge lit">Python 3.10</span>
+        <span class="badge lit">Random Forest</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge">ROC-AUC 0.912</span>
+        <span class="badge">Acc 83.2%</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge">Clinical AI</span>
+        <span class="badge">REST API</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* ── Particle field ── */
+(function () {
+  const c  = document.getElementById('particleCanvas');
+  const ctx = c.getContext('2d');
+  const W = 960, H = 90;
+  c.width = W; c.height = H;
+
+  const DOTS = Array.from({ length: 55 }, () => ({
+    x:  Math.random() * W,
+    y:  Math.random() * H,
+    r:  .5 + Math.random() * 1,
+    vx: (Math.random() - .5) * .25,
+    vy: (Math.random() - .5) * .18,
+    a:  .06 + Math.random() * .12,
+  }));
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+
+    DOTS.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0) d.x = W;
+      if (d.x > W) d.x = 0;
+      if (d.y < 0) d.y = H;
+      if (d.y > H) d.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(150,10,0,${d.a})`;
+      ctx.fill();
+    });
+
+    // draw connecting lines between close dots
+    for (let i = 0; i < DOTS.length; i++) {
+      for (let j = i + 1; j < DOTS.length; j++) {
+        const dx = DOTS[i].x - DOTS[j].x;
+        const dy = DOTS[i].y - DOTS[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 80) {
+          ctx.beginPath();
+          ctx.moveTo(DOTS[i].x, DOTS[i].y);
+          ctx.lineTo(DOTS[j].x, DOTS[j].y);
+          ctx.strokeStyle = `rgba(120,5,0,${.08 * (1 - dist/80)})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ── EKG pulse ── */
+(function () {
+  const c   = document.getElementById('ekgCanvas');
+  const ctx = c.getContext('2d');
+  const W = 200, H = 18;
+  let offset = 0;
+
+  // one EKG cycle
+  const CYCLE = [
+    0, 0, 0, 0, 0.1, -0.1,
+    0, 0, 0.8, -0.5, 0.15, 0,
+    0, 0, 0.2, 0.2, 0, 0,
+    0, 0, 0, 0, 0, 0,
+  ];
+
+  function getY(x) {
+    const t = ((x + offset) / W) * CYCLE.length;
+    const i = Math.floor(t) % CYCLE.length;
+    const f = t % 1;
+    const a = CYCLE[i];
+    const b = CYCLE[(i + 1) % CYCLE.length];
+    return H / 2 - (a + (b - a) * f) * (H / 2 - 2);
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.beginPath();
+    for (let x = 0; x < W; x++) {
+      x === 0 ? ctx.moveTo(x, getY(x)) : ctx.lineTo(x, getY(x));
+    }
+    ctx.strokeStyle = '#cc2200';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    offset += .8;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>

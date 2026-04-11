@@ -9,6 +9,7 @@
 ![Flask](https://img.shields.io/badge/Flask-2.x-880000?style=for-the-badge&logo=flask&logoColor=white)
 ![RandomForest](https://img.shields.io/badge/Random_Forest-Classifier-f5a623?style=for-the-badge&logo=scikit-learn&logoColor=black)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-f5a623?style=for-the-badge&logo=scikit-learn&logoColor=black)
+
 ![Status](https://img.shields.io/badge/Status-ONLINE-00ff44?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-cc0000?style=flat-square)
 ![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.912-cc0000?style=flat-square)
